@@ -18,9 +18,11 @@ from .ids import (
     InvalidIdError,
     InvalidTypeError,
     decode,
+    decode_any,
     encode,
     generate,
     is_valid,
+    is_valid_shape,
     type_of,
 )
 
@@ -30,9 +32,11 @@ __all__ = [
     "InvalidIdError",
     "InvalidTypeError",
     "decode",
+    "decode_any",
     "encode",
     "generate",
     "is_valid",
+    "is_valid_shape",
     "type_of",
 ]
 

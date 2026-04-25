@@ -150,6 +150,65 @@ def decode(id_: str) -> DecodedId:
     return DecodedId(type=type_, uuid=canonical)
 
 
+def decode_any(id_: str) -> DecodedId:
+    """Decode a Flametrench wire-format ID without checking the registered-type set.
+
+    Use this for backend storage adapters that need to convert wire-format
+    object IDs to canonical UUIDs without knowing the application's
+    domain types in advance — e.g., when an authz tuple has
+    ``object_type='proj'`` and ``object_id='proj_0190f2a8...'``.
+
+    Validates wire-format shape (separator, 32-char lowercase hex, version
+    nibble 1–8). Does NOT consult :data:`TYPES`. See ``spec/docs/ids.md``.
+
+    :raises InvalidIdError: If the ID's structure is malformed. Never
+                            raises :class:`InvalidTypeError`.
+    """
+    if not isinstance(id_, str):
+        raise InvalidIdError(f"ID must be a string: {id_!r}")
+    separator = id_.find("_")
+    if separator == -1:
+        raise InvalidIdError(f"ID missing type separator: {id_}")
+
+    type_ = id_[:separator]
+    hex_payload = id_[separator + 1 :]
+
+    if len(type_) == 0:
+        raise InvalidIdError(f"ID has empty type prefix: {id_}")
+
+    if len(hex_payload) != _HEX_PAYLOAD_LENGTH or not _HEX_PATTERN.match(hex_payload):
+        raise InvalidIdError(f"ID payload is not 32 lowercase hex characters: {id_}")
+
+    if not _VERSION_NIBBLE_PATTERN.match(hex_payload[12]):
+        raise InvalidIdError(f"ID payload is not a valid UUID: {id_}")
+
+    canonical = "-".join(
+        [
+            hex_payload[0:8],
+            hex_payload[8:12],
+            hex_payload[12:16],
+            hex_payload[16:20],
+            hex_payload[20:32],
+        ]
+    )
+    return DecodedId(type=type_, uuid=canonical)
+
+
+def is_valid_shape(id_: str) -> bool:
+    """Predicate counterpart to :func:`decode_any`.
+
+    Returns true for any well-formed wire-format ID regardless of
+    registry membership. Use this when validating input from external
+    systems that may legitimately reference application-defined object
+    types.
+    """
+    try:
+        decode_any(id_)
+    except InvalidIdError:
+        return False
+    return True
+
+
 def is_valid(id_: str, expected_type: str | None = None) -> bool:
     """Check whether a string is a valid Flametrench wire-format ID.
 

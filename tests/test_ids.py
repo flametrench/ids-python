@@ -17,11 +17,15 @@ from flametrench_ids import (
     InvalidTypeError,
     TYPES,
     decode,
+    decode_any,
     encode,
     generate,
     is_valid,
+    is_valid_shape,
     type_of,
 )
+
+SAMPLE_HEX = "0190f2a81b3c7abc8123456789abcdef"
 
 
 class TestEncode:
@@ -118,3 +122,52 @@ class TestGenerate:
         assert decoded.type == "org"
         # Re-encode and compare back to the wire form.
         assert encode("org", decoded.uuid) == id_
+
+
+class TestDecodeAny:
+    """Adapter helper for application-defined object types."""
+
+    def test_decodes_a_registered_prefix_the_same_as_decode(self) -> None:
+        result = decode_any(f"usr_{SAMPLE_HEX}")
+        assert result.type == "usr"
+        assert result.uuid == "0190f2a8-1b3c-7abc-8123-456789abcdef"
+
+    def test_decodes_an_application_defined_prefix_that_decode_rejects(
+        self,
+    ) -> None:
+        # 'proj' is not in TYPES — strict decode raises InvalidTypeError;
+        # decode_any accepts it.
+        result = decode_any(f"proj_{SAMPLE_HEX}")
+        assert result.type == "proj"
+
+    def test_rejects_malformed_shape_with_invalid_id_error(self) -> None:
+        with pytest.raises(InvalidIdError):
+            decode_any("no-separator")
+
+    def test_rejects_uppercase_hex(self) -> None:
+        with pytest.raises(InvalidIdError):
+            decode_any(f"usr_{SAMPLE_HEX.upper()}")
+
+    def test_rejects_empty_type_prefix(self) -> None:
+        with pytest.raises(InvalidIdError):
+            decode_any(f"_{SAMPLE_HEX}")
+
+    def test_rejects_nil_uuid(self) -> None:
+        with pytest.raises(InvalidIdError):
+            decode_any("usr_00000000000000000000000000000000")
+
+
+class TestIsValidShape:
+    """Predicate counterpart to decode_any."""
+
+    def test_returns_true_for_application_defined_prefixes(self) -> None:
+        assert is_valid_shape(f"proj_{SAMPLE_HEX}")
+        assert is_valid_shape(f"doc_{SAMPLE_HEX}")
+
+    def test_returns_true_for_registered_prefixes(self) -> None:
+        assert is_valid_shape(f"usr_{SAMPLE_HEX}")
+
+    def test_returns_false_for_malformed_shape(self) -> None:
+        assert not is_valid_shape("not an id")
+        assert not is_valid_shape(f"usr_{SAMPLE_HEX.upper()}")
+        assert not is_valid_shape("usr_ffffffffffffffffffffffffffffffff")
