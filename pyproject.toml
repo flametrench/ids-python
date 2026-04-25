@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flametrench-ids"
+version = "0.1.0"
+description = "Flametrench v0.1 wire-format identifiers for Python: encode, decode, and generate prefixed UUIDv7 IDs."
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.11"
+authors = [
+    { name = "NDC Digital, LLC" },
+]
+keywords = ["flametrench", "ids", "uuid", "uuidv7", "wire-format"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    # uuid7 is available in stdlib as `uuid.uuid7()` from Python 3.14+. For
+    # 3.11–3.13 we fall back to the `uuid7` package, which produces the same
+    # RFC 9562 v7 layout. Either path produces identical wire-format output;
+    # the conformance fixtures verify this.
+    "uuid7>=0.1.0;python_version<'3.14'",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+]
+
+[project.urls]
+Homepage = "https://flametrench.dev"
+Repository = "https://github.com/flametrench/ids-python"
+Specification = "https://github.com/flametrench/spec"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
