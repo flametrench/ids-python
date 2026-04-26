@@ -47,6 +47,8 @@ TYPES: dict[str, str] = {
     "ses": "session",
     "cred": "credential",
     "tup": "authorization_tuple",
+    # v0.2 — Proposed (ADR 0008)
+    "mfa": "mfa_factor",
 }
 
 
