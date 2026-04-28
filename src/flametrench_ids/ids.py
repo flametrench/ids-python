@@ -16,11 +16,13 @@ from dataclasses import dataclass
 
 # UUIDv7 source. Python 3.14 added uuid.uuid7 to the stdlib; older versions
 # use the `uuid7` package, which produces an identical RFC 9562 v7 layout.
+# (PyPI's `uuid7` distribution publishes its module as `uuid_extensions` —
+# the dist name and module name don't match.)
 if sys.version_info >= (3, 14):
     def _uuid7() -> uuid.UUID:
         return uuid.uuid7()
 else:
-    from uuid7 import uuid7 as _uuid7_str
+    from uuid_extensions import uuid7 as _uuid7_str
 
     def _uuid7() -> uuid.UUID:
         return uuid.UUID(str(_uuid7_str()))

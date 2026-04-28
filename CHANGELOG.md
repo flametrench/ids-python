@@ -3,6 +3,11 @@
 All notable changes to `flametrench-ids` are recorded here.
 Spec-level changes live in [`spec/CHANGELOG.md`](https://github.com/flametrench/spec/blob/main/CHANGELOG.md).
 
+## [v0.2.0rc3] — 2026-04-27
+
+### Fixed
+- UUIDv7 fallback import on Python 3.11–3.13. The PyPI distribution `uuid7` exposes its module as `uuid_extensions` (the dist name and module name don't match), so the fallback `from uuid7 import uuid7` raised `ModuleNotFoundError` on every Python below 3.14. Local development happens on Python 3.14 (which uses the stdlib `uuid.uuid7()` fast path), so the broken fallback never surfaced until CI exercised it. Now imports `from uuid_extensions import uuid7` correctly.
+
 ## [v0.2.0rc2] — 2026-04-27
 
 ### Added
