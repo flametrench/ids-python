@@ -1,6 +1,6 @@
 # flametrench-ids
 
-Python SDK for the [Flametrench v0.1](https://github.com/flametrench/spec) wire-format identifier specification.
+Python SDK for the [Flametrench](https://github.com/flametrench/spec) wire-format identifier specification.
 
 Flametrench identifiers are stable, opaque strings of the form `{type}_{32-hex}`, where the hex payload is a UUIDv7 (so generated IDs sort by creation time). The same identifiers travel unchanged across Node, PHP, Python, and Java SDKs.
 
@@ -29,15 +29,17 @@ Requires Python 3.11+. UUIDv7 generation uses `uuid.uuid7()` from the stdlib on 
 
 ## Registered type prefixes
 
-| Prefix  | Meaning                |
-| ------- | ---------------------- |
-| `usr`   | user                   |
-| `org`   | organization           |
-| `mem`   | membership             |
-| `inv`   | invitation             |
-| `ses`   | session                |
-| `cred`  | credential             |
-| `tup`   | authorization tuple    |
+| Prefix  | Meaning                | Spec version |
+| ------- | ---------------------- | ------------ |
+| `usr`   | user                   | v0.1         |
+| `org`   | organization           | v0.1         |
+| `mem`   | membership             | v0.1         |
+| `inv`   | invitation             | v0.1         |
+| `ses`   | session                | v0.1         |
+| `cred`  | credential             | v0.1         |
+| `tup`   | authorization tuple    | v0.1         |
+| `mfa`   | MFA factor             | v0.2         |
+| `shr`   | share token            | v0.2         |
 
 The registry is normative; see [docs/ids.md](https://github.com/flametrench/spec/blob/main/docs/ids.md) for the full rules.
 
