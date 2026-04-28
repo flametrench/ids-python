@@ -1,5 +1,7 @@
 # flametrench-ids
 
+[![CI](https://github.com/flametrench/ids-python/actions/workflows/ci.yml/badge.svg)](https://github.com/flametrench/ids-python/actions/workflows/ci.yml)
+
 Python SDK for the [Flametrench](https://github.com/flametrench/spec) wire-format identifier specification.
 
 Flametrench identifiers are stable, opaque strings of the form `{type}_{32-hex}`, where the hex payload is a UUIDv7 (so generated IDs sort by creation time). The same identifiers travel unchanged across Node, PHP, Python, and Java SDKs.
