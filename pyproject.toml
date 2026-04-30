@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "flametrench-ids"
-version = "0.2.0rc3"
+version = "0.2.0"
 description = "Flametrench v0.1 wire-format identifiers for Python: encode, decode, and generate prefixed UUIDv7 IDs."
 readme = "README.md"
 license = { text = "Apache-2.0" }
