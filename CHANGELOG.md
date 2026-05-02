@@ -3,6 +3,14 @@
 All notable changes to `flametrench-ids` are recorded here.
 Spec-level changes live in [`spec/CHANGELOG.md`](https://github.com/flametrench/spec/blob/main/CHANGELOG.md).
 
+## [v0.3.0] — Unreleased (PyPI publish blocked)
+
+### Added
+- New `pat` type prefix registered in `TYPES` for the v0.3 personal-access-token primitive ([ADR 0016](https://github.com/flametrench/spec/blob/main/decisions/0016-personal-access-tokens.md)). `encode("pat", uuid)`, `decode("pat_…")`, and `generate("pat")` now work; the PAT store in `flametrench-identity` consumes this prefix.
+
+### Release status
+- Tagged in lockstep with the Node and PHP v0.3.0 cuts; PyPI publication remains externally blocked (the `flametrench` org approval that has held since v0.2.0). Wheels build locally; `pip install -e ../ids-python` from a sibling checkout works for downstream consumers.
+
 ## [v0.2.0rc3] — 2026-04-27
 
 ### Fixed

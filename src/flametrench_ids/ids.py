@@ -53,6 +53,8 @@ TYPES: dict[str, str] = {
     "mfa": "mfa_factor",
     # v0.2 — Proposed (ADR 0012)
     "shr": "share_token",
+    # v0.3 — Proposed (ADR 0016)
+    "pat": "personal_access_token",
 }
 
 
