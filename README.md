@@ -42,8 +42,11 @@ Requires Python 3.11+. UUIDv7 generation uses `uuid.uuid7()` from the stdlib on 
 | `tup`   | authorization tuple    | v0.1         |
 | `mfa`   | MFA factor             | v0.2         |
 | `shr`   | share token            | v0.2         |
+| `pat`   | personal access token  | v0.3         |
 
 The registry is normative; see [docs/ids.md](https://github.com/flametrench/spec/blob/main/docs/ids.md) for the full rules.
+
+**Status:** v0.3.0 (stable; PyPI publish blocked pending org approval — wheels built and `twine check`-validated locally, will publish once unblocked). Tracks the spec at v0.3.0; the `pat_` prefix lands in v0.3 via [ADR 0016](https://github.com/flametrench/spec/blob/main/decisions/0016-personal-access-tokens.md).
 
 ## Conformance
 
