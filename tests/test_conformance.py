@@ -119,3 +119,18 @@ def test_type_of_conformance(test_case: dict[str, Any]) -> None:
             type_of(inp["id"])
     else:
         assert type_of(inp["id"]) == expected["result"]
+
+
+# ─── ids.registered_prefixes — v0.4 drift guard (spec@ba4f201) ───
+
+
+@pytest.mark.parametrize("test_case", _ids_param("ids/registered-prefixes.json"))
+def test_registered_prefixes_conformance(test_case: dict[str, Any]) -> None:
+    inp = test_case["input"]
+    expected = test_case["expected"]
+    if "error" in expected:
+        ctor = _error_class_for_spec_name(expected["error"])
+        with pytest.raises(ctor):
+            type_of(inp["id"])
+    else:
+        assert type_of(inp["id"]) == expected["result"]
