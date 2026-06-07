@@ -3,6 +3,15 @@
 All notable changes to `flametrench-ids` are recorded here.
 Spec-level changes live in [`spec/CHANGELOG.md`](https://github.com/flametrench/spec/blob/main/CHANGELOG.md).
 
+## [v0.4.0] — 2026-06-07
+
+### Added
+- Four new type prefixes registered in `TYPES` for the v0.4 primitive cohort (ADRs 0019–0022, all promoted from Reserved to Active):
+  - `aud` — audit event ([ADR 0019](https://github.com/flametrench/spec/blob/main/decisions/0019-audit-primitive.md))
+  - `file` — file metadata ([ADR 0020](https://github.com/flametrench/spec/blob/main/decisions/0020-file-metadata-primitive.md))
+  - `flag` — feature flag ([ADR 0021](https://github.com/flametrench/spec/blob/main/decisions/0021-flags-primitive.md))
+  - `not` — notification ([ADR 0022](https://github.com/flametrench/spec/blob/main/decisions/0022-notify-primitive.md))
+
 ## [v0.3.0] — 2026-06-07
 
 ### Added
