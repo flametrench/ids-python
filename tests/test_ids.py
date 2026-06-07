@@ -157,6 +157,36 @@ class TestDecodeAny:
             decode_any("usr_00000000000000000000000000000000")
 
 
+class TestRegisteredPrefixes:
+    """Pin the exact set of registered prefixes (cross-SDK stability guard).
+
+    This test fails if a prefix is accidentally dropped or silently added
+    without a spec ADR. It is the Python equivalent of the upcoming
+    spec/conformance/fixtures/ids/registered-prefixes.json vector.
+    """
+
+    _EXPECTED: frozenset[str] = frozenset({
+        # v0.1 — Active
+        "usr", "org", "mem", "inv", "ses", "cred", "tup",
+        # v0.2 — Active (ADR 0008 / ADR 0012)
+        "mfa", "shr",
+        # v0.3 — Active (ADR 0016)
+        "pat",
+        # v0.4 — Active (ADRs 0019–0022)
+        "aud", "file", "flag", "not",
+    })
+
+    def test_registered_set_is_complete(self) -> None:
+        assert frozenset(TYPES.keys()) == self._EXPECTED
+
+    def test_all_v04_prefixes_present(self) -> None:
+        for prefix in ("aud", "file", "flag", "not"):
+            assert prefix in TYPES, f"v0.4 prefix {prefix!r} missing from TYPES"
+
+    def test_pat_present(self) -> None:
+        assert "pat" in TYPES
+
+
 class TestIsValidShape:
     """Predicate counterpart to decode_any."""
 
