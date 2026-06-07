@@ -55,6 +55,11 @@ TYPES: dict[str, str] = {
     "shr": "share_token",
     # v0.3 — Active (ADR 0016)
     "pat": "personal_access_token",
+    # v0.4 — Active (ADRs 0019–0022)
+    "aud": "audit_event",
+    "file": "file_metadata",
+    "flag": "feature_flag",
+    "not": "notification",
 }
 
 
