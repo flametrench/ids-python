@@ -3,6 +3,11 @@
 All notable changes to `flametrench-ids` are recorded here.
 Spec-level changes live in [`spec/CHANGELOG.md`](https://github.com/flametrench/spec/blob/main/CHANGELOG.md).
 
+## [v0.3.0] — 2026-06-07
+
+### Added
+- `pat` type prefix registered in `TYPES` for the v0.3 Personal Access Token primitive ([ADR 0016](https://github.com/flametrench/spec/blob/main/decisions/0016-personal-access-tokens.md)). `encode("pat", uuid)`, `decode("pat_…")`, and `generate("pat")` now work; the PAT store in `flametrench-identity` consumes this prefix.
+
 ## [v0.2.0rc3] — 2026-04-27
 
 ### Fixed
